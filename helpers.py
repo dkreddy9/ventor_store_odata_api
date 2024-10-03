@@ -106,7 +106,7 @@ def process_odata_documents(json_data, connection, EMBEDDING_DEPLOYMENT_ID):
         # print(db)
 
         # Delete existing records if any
-        db.delete(filter={})
+        # db.delete(filter={})
         
         # Add the new document chunks
         db.add_documents(texts)
