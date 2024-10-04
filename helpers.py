@@ -25,9 +25,13 @@ connection = dbapi.connect(
     port=port,
     user=user,
     password=passwd,
+    # databaseName='YourDatabaseName',
     autocommit=True,
     sslValidationCertificate=False
 ) 
+
+with connection.cursor() as cursor:
+    cursor.execute("SET SCHEMA D2682B165E944B069E9A1BD5767DF401") # "94E8A68E601746ABBDFDC48DF569AFF8
 
 def call_odata(url): 
     # Request headers to get the response in JSON format
@@ -72,10 +76,10 @@ def json_to_text(json_data, indent=0):
 # Function to parse the OData JSON and extract relevant fields
 def extract_data_from_odata_JSON(json_data):
     extracted_data = []
-    remove_metadata(json_data)   
-    results_json = json_data['d']
-    readable_string = json_to_text(results_json)
-    # return readable_string
+    # remove_metadata(json_data)   
+    # results_json = json_data['d']
+    # readable_string = json_to_text(results_json)
+    readable_string = "Dummy data"
     doc = Document(page_content=readable_string)
     extracted_data.append(doc)
     return extracted_data
@@ -119,8 +123,9 @@ def process_odata_documents(json_data, connection, EMBEDDING_DEPLOYMENT_ID):
     
     # Process odata
 def process_odata(odata_url): 
-    try:         
-            json_data = call_odata(odata_url)  
+    try:     
+            json_data = ''    
+            # json_data = call_odata(odata_url)               
             process_odata_documents(json_data, connection, EMBEDDING_DEPLOYMENT_ID)  
     except Exception as e:
         # Return an error message if there was an exception
